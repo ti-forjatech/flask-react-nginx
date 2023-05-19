@@ -22,6 +22,7 @@ function App() {
   return (
     <div>
       <p>From server: {data}</p>
+      <p>Test</p>
     </div>
   );
 }
