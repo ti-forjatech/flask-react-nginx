@@ -1,6 +1,6 @@
 from flask import Flask, g, jsonify
-
-from .views.api_view import api_bp
+from flask_cors import CORS
+from .views.core_view import app_bp
 
 def page_not_found(e):
     """Custom error handling for 404"""
@@ -9,8 +9,9 @@ def page_not_found(e):
 
 def create_app(testing: bool = True):
     app = Flask(__name__)
+    CORS(app)
     app.secret_key = 'random secret key'
-    app.register_blueprint(api_bp)
+    app.register_blueprint(app_bp)
     app.register_error_handler(404, page_not_found)
 
     @app.before_request

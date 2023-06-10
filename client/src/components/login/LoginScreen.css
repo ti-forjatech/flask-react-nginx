@@ -1,0 +1,189 @@
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-family: sans-serif;
+}
+
+body .btn {
+  padding: 8px;
+  margin: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+body .btn_cotacao_aprovar {
+  padding: 4px;
+  margin: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #357960;
+  border: solid 1px #357960;
+}
+
+body .btn_cotacao_cancelar {
+  padding: 4px;
+  margin: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #e53529;
+  border: solid 1px #e53529;
+}
+
+body div.block_hide {
+  display: none;
+}
+
+body div.horizontal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+}
+
+img.logo_login {
+  width: 180px;
+  height: 180px;
+}
+
+form {
+  background-color: #92ddff;
+  width: 100%;
+  border-radius: 8px;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 16px;
+  border: 1px solid #5c74ac;
+}
+
+form label {
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  margin: 4px 0;
+  color: #5c74ac;
+  cursor: pointer;
+}
+
+form input {
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0px 2px 8px rgba(0, 0, 0, 0.2);
+          box-shadow: inset 0px 2px 8px rgba(0, 0, 0, 0.2);
+  margin: 4px 0;
+  border: 1px solid #5c74ac;
+  outline: none;
+  padding: 10px;
+  text-align: center;
+  width: 250px;
+  color: rgba(0, 0, 0, 0.5);
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: regular;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+form input:focus {
+  font-family: monospace;
+  color: #5c74ac;
+  background-color: #92ddff;
+}
+
+form input::-webkit-input-placeholder {
+  font-size: 12px;
+  opacity: .5;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+form input:-ms-input-placeholder {
+  font-size: 12px;
+  opacity: .5;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+form input::-ms-input-placeholder {
+  font-size: 12px;
+  opacity: .5;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+form input::placeholder {
+  font-size: 12px;
+  opacity: .5;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 643px) {
+  form input:focus {
+    background-color: white;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  form input {
+    width: 100%;
+  }
+}
+
+form input#submit {
+  background-color: transparent;
+  color: #5c74ac;
+  border-radius: 4px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  margin-top: 16px;
+  border: 1px solid #5c74ac;
+  padding: 8px;
+  width: 100px;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+form input#submit:hover {
+  background-color: #5c74ac;
+  color: #92ddff;
+}
+
+@media screen and (max-width: 643px) {
+  form {
+    border: none;
+    width: 100%;
+  }
+}
+
+form p.versao {
+  margin-top: 16px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.2);
+}
+/*# sourceMappingURL=LoginScreen.css.map */

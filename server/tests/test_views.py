@@ -11,5 +11,7 @@ def client():
 
 
 def test_routes(client):
-    response = client.get("/api/test")
+    response = client.get("/app/data")
+    assert response.status_code == 200
+    response = client.get("/app/login")
     assert response.status_code == 200

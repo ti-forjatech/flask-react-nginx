@@ -1,0 +1,43 @@
+@import './variaveis';
+@import './reset';
+
+body{
+    .btn{
+        padding: 8px;
+        margin: 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .btn_cotacao_aprovar{
+        padding: 4px;
+        margin: 4px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        color: $color_amazon;
+        border: solid 1px $color_amazon;
+    }
+    
+    .btn_cotacao_cancelar{
+        padding: 4px;
+        margin: 4px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        color: $color_cinnabar;
+        border: solid 1px $color_cinnabar;
+    }
+
+    div.block_hide{
+        display: none;
+    }
+
+    div.horizontal{
+        display:flex;
+        flex-direction: row;
+        justify-content:space-between;
+        width: 100%;
+    }
+}
