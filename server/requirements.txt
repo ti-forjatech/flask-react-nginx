@@ -1,4 +1,4 @@
 gunicorn
-bcrypt
-Flask
-Flask-Cors
+flask-bcrypt
+flask
+flask-cors

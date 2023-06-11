@@ -4,7 +4,7 @@ from .views.core_view import app_bp
 
 def page_not_found(e):
     """Custom error handling for 404"""
-    return jsonify({"error": "page not found"})
+    return jsonify({"error": "página não encontrada"})
 
 
 def create_app(testing: bool = True):
@@ -21,4 +21,7 @@ def create_app(testing: bool = True):
     return app
 
 
-application = create_app()
+application = create_app(False)
+
+if __name__ == '__main__':
+    application.run(debug=True, hostname='0.0.0.0')
