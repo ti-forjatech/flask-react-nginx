@@ -10,6 +10,7 @@ from .centros_custo import centros_custo_bp
 from .sub_centros_custo import sub_centros_custo_bp
 from .clientes import clientes_bp
 from .tipos_documento import tipos_documento_bp
+from .cargo_acessos import cargo_acessos_bp
 from ..auth import users
 
 # criação das Blueprints da API: app e v2
@@ -30,12 +31,13 @@ v2_bp.register_blueprint(estoque_bp)
 v2_bp.register_blueprint(centros_custo_bp)
 v2_bp.register_blueprint(sub_centros_custo_bp)
 v2_bp.register_blueprint(tipos_documento_bp)
+v2_bp.register_blueprint(cargo_acessos_bp)
 
 @app_bp.get("/data")
 def get_data() -> Response:
     data = {
         "api_name":"Rio Services core API",
-        "api_version":"2.0.0",
+        "api_version":"2.1.0",
         "api_dev_start_date":"09/07/2023",
         "api_author":"Forjatech Soluções Tecnológicas (Thyéz de Oliveira Monteiro)",
         "api_description":"API central da Rio Services. Esta API provê recursos computacionais de alta performance e escalabilidade para o recolhimento, armazenamento adequado, operaçoes e proteção dos dados da empresa."
