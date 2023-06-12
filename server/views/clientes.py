@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 
-cargos_bp = Blueprint("cargos", __name__, url_prefix="/cargos")
+clientes_bp = Blueprint("clientes", __name__, url_prefix="/clientes")
 
 # CRUD #
 # Lista de teste
@@ -20,8 +20,8 @@ lista = [
 ]
 
 # Create
-@cargos_bp.post("/inserir")
-def insert_cargo():
+@clientes_bp.post("/inserir")
+def insert_cliente():
     lista_length = len(lista)
     json = request.get_json()
     if json != {}:
@@ -30,24 +30,24 @@ def insert_cargo():
             lista.append(json)
             return jsonify({
                 "method":"POST",
-                "acao":f"Inserir um novo cargo.",
+                "acao":f"Inserir um novo cliente.",
                 "data":json
             })
         return jsonify({"msg":"Insira uma chave 'name' ."})
-    return jsonify({"msg":"Insira os dados do novo cargo a ser cadastrado."})
+    return jsonify({"msg":"Insira os dados do novo cliente a ser cadastrado."})
 
 # Read all
-@cargos_bp.get("/listar")
-def get_cargos():
+@clientes_bp.get("/listar")
+def get_clientes():
     return jsonify({
         "method":"GET",
-        "acao":"Listar todos os cargos.",
+        "acao":"Listar todos os clientes.",
         "data":lista
     })
 
 # Read
-@cargos_bp.get("/buscar")
-def get_cargo():
+@clientes_bp.get("/buscar")
+def get_cliente():
     data = request.get_json()
 
     if 'id' in data:
@@ -55,15 +55,15 @@ def get_cargo():
             if register['id'] == data['id']:
                 return jsonify({
                     "method":"GET",
-                    "acao":f"Buscar o cargo de ID {data['id']}.",
+                    "acao":f"Buscar o cliente de ID {data['id']}.",
                     "data":register
                 })
         return jsonify({"msg":"Insira um ID valido."})
     return jsonify({"msg":"Insira um ID."})
 
 # Update
-@cargos_bp.post("/atualizar")
-def update_cargo():
+@clientes_bp.post("/atualizar")
+def update_cliente():
     data = request.get_json()
     if 'id' in data:
         if 'data' in data:
@@ -72,20 +72,26 @@ def update_cargo():
                     register['name'] = data['data']['name']
                     return jsonify({
                         "method":"POST",
-                        "acao":f"Atualizar o cargo de ID {data['id']}.",
+                        "acao":f"Atualizar o cliente de ID {data['id']}.",
                         "data":data
                     })
         return jsonify({"msg":"Insira os dados."})
     return jsonify({"msg":"Insira um ID."})
 
 # Remove
-@cargos_bp.post("/remover")
-def remove_cargo():
+@clientes_bp.post("/remover")
+def remove_cliente():
     data = request.get_json()
     if 'id' in data:
         del lista[data['id'] - 1]
         return jsonify({
             "method":"POST",
-            "acao":f"Remover o cargo de ID {data['id']}.",
+            "acao":f"Remover o cliente de ID {data['id']}.",
         })
     return jsonify({"msg":"Insira um ID."})
+
+@clientes_bp.errorhandler(415)
+def only_json_advice(error):
+    return jsonify({
+        "msg":"Envie os dados em formato JSON."
+        })

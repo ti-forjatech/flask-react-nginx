@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint
 from .estoque_categorias import categorias_bp
 from .estoque_itens import itens_bp
 
