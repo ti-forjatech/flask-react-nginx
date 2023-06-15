@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from sqlalchemy import text
 
 cargos_bp = Blueprint("cargos", __name__, url_prefix="/cargos")
 

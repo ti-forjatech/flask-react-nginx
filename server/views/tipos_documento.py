@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from sqlalchemy import text
 
 tipos_documento_bp = Blueprint("tipos_documento", __name__, url_prefix="/tipos_documento")
 

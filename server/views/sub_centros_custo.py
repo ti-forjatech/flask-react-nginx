@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from sqlalchemy import text
 
 sub_centros_custo_bp = Blueprint("sub_centros_custo", __name__, url_prefix="/sub_centros_custo")
 
@@ -89,9 +90,3 @@ def remove_sub_centro_custo():
             "acao":f"Remover o sub centro custo de ID {data['id']}.",
         })
     return jsonify({"msg":"Insira um ID."})
-
-@sub_centros_custo_bp.errorhandler(415)
-def only_json_advice(error):
-    return jsonify({
-        "msg":"Envie os dados em formato JSON."
-        })
