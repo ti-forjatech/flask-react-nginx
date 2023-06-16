@@ -1,10 +1,13 @@
+from flask_jwt_extended import create_access_token, get_jwt, get_jwt_identity, jwt_required, JWTManager, set_access_cookies, unset_jwt_cookies
 from flask import Flask, g, jsonify
 from flask_cors import CORS
+from datetime import datetime, timedelta, timezone
 from .views.core_view import app_bp
-import secrets
+from .modules.config import define_app_secret
+import sys
+sys.path.append("/usr/local/lib/python2.7/site-packages")
 
 def bad_request(e):
-    print(e)
     return jsonify({"Error": "A requisição correta precisa ser um objeto JSON."})
 
 def page_not_found(e):
@@ -16,23 +19,51 @@ def only_json_advice(e):
         "msg":"Todas as requisições devem ser realizadas através de um objeto JSON."
         })
 
+def not_authorized(e):
+    return jsonify({
+        "msg":"Não autorizado!."
+        })
+
+def signature_verification_failed(e):
+    return jsonify({
+        "msg":"Token inválido! Verifique sua assinatura."
+        })
+
 def create_app(testing: bool = True):
     app = Flask(__name__)
     CORS(app)
-    app.secret_key = secrets.token_hex(16)
+    jwt = JWTManager(app)
+    app = define_app_secret(app)
     app.register_blueprint(app_bp)
-    app.register_error_handler(404, page_not_found)
     app.register_error_handler(400, bad_request)
+    app.register_error_handler(401, not_authorized)
+    app.register_error_handler(404, page_not_found)
     app.register_error_handler(415, only_json_advice)
-
+    app.register_error_handler(422, signature_verification_failed)
+    
     @app.before_request
     def before_request() -> None:
         g.testing = testing
-
+    
+    @app.after_request
+    def refresh_expiring_jwts(response):
+        try:
+            exp_timestamp = get_jwt()["exp"]
+            print("exp_timestamp: ", exp_timestamp)
+            now = datetime.now(timezone.utc)
+            target_timestamp = datetime.timestamp(now + timedelta(minutes=5))
+            print("target_timestamp: ", target_timestamp)
+            if target_timestamp > exp_timestamp:
+                access_token = create_access_token(identity=get_jwt_identity())
+                set_access_cookies(response, access_token)
+            return response
+        except (RuntimeError, KeyError):
+            # Case where there is not a valid JWT. Just return the original response
+            return response
+    
     return app
-
 
 application = create_app(True)
 
 if __name__ == '__main__':
-    application.run(debug=True, hostname='0.0.0.0')
+    application.run()

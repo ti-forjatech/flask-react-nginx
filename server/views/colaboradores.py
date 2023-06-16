@@ -1,30 +1,45 @@
 from flask import Blueprint, jsonify, request
 from sqlalchemy import text
 from ..modules.connection import engine
+from ..modules.models import Colaborador
+from sqlalchemy.orm import sessionmaker
+from flask_jwt_extended import get_jwt_identity, jwt_required, current_user
 
 colaboradores_bp = Blueprint("colaboradores", __name__, url_prefix="/colaboradores")
-
-# CRUD #
+Session = sessionmaker(bind=engine)
 
 # Create
 @colaboradores_bp.post("/inserir")
+@jwt_required()
 def insert_colaborador():
+    current_user = get_jwt_identity()
     data = request.get_json()
-    if data != {}:
-        if 'name' in data:
-            data['user_inserted'] = True
-            return jsonify({
-                "method":"POST",
-                "acao":f"Inserir um novo colaborador.",
-                "data":data
-            })
-        return jsonify({"msg":"Insira uma chave 'name' ."})
-    return jsonify({"msg":"Insira os dados do novo colaborador a ser cadastrado."})
+    required_fields = ['colab_matricula', 'colab_nome', 'colab_cpf', 'colab_login', 'colab_password']
+    for field in required_fields:
+        if not field in data:
+            return jsonify({"msg":f"Insira uma chave '{field}' e atribua um valor."})
+        
+    if data == {}:
+        return jsonify({"msg":"Insira os dados do novo colaborador a ser cadastrado."})
+    else:
+        with Session() as session:
+            colaborador = Colaborador(**data)
+            result = session.add(colaborador)
+            session.commit()
 
+            return jsonify({
+                "msg":"Usuário inserido com sucesso!",
+                "colab_inserted":True,
+                "new_colab_id": result
+            })
+        
 # Read all
 @colaboradores_bp.get("/listar")
+@jwt_required()
 def get_colaboradores():
-    lista = []
+    current_user = get_jwt_identity()
+    print("current_user: ", current_user)
+    user_list = []
     with engine.connect() as connection:
         result = connection.execute(text("select * from tb_colaboradores"))
         for row in result:
@@ -50,21 +65,21 @@ def get_colaboradores():
                 "colab_status":row[19],
                 "base_id":row[20],
             }
-            lista.append(user_composition)
+            user_list.append(user_composition)
 
     return jsonify({
         "method":"GET",
         "acao":"Listar todos os colaboradores.",
-        "data":lista
+        "data":user_list,
+        "logged_user":current_user
     })
 
 # Read
 @colaboradores_bp.get("/buscar")
+@jwt_required()
 def get_colaborador():
+    current_user = get_jwt_identity()
     data = request.get_json()
-
-    print(data)
-
     if 'id' in data:
         with engine.connect() as connection:
             result = connection.execute(text(f"select * from tb_colaboradores where colab_id={data['id']}"))
@@ -98,7 +113,9 @@ def get_colaborador():
 
 # Update
 @colaboradores_bp.post("/atualizar")
+@jwt_required()
 def update_colaborador():
+    current_user = get_jwt_identity()
     data = request.get_json()
     if 'id' in data:
         if 'data' in data:
@@ -113,7 +130,9 @@ def update_colaborador():
 
 # Remove
 @colaboradores_bp.post("/remover")
+@jwt_required()
 def remove_colaborador():
+    current_user = get_jwt_identity()
     data = request.get_json()
     if 'id' in data:
         del lista[data['id'] - 1]

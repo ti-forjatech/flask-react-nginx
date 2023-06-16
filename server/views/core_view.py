@@ -40,7 +40,7 @@ v2_bp.register_blueprint(clientes_bp)
 def get_data() -> Response:
     data = {
         "api_name":"Rio Services core API",
-        "api_version":"2.2.0",
+        "api_version":"2.3.0",
         "api_dev_start_date":"09/07/2023",
         "api_author":"Forjatech Soluções Tecnológicas (Thyéz de Oliveira Monteiro)",
         "api_description":"API central da Rio Services. Esta API provê recursos computacionais de alta performance e escalabilidade para o recolhimento, armazenamento adequado, operaçoes e proteção dos dados da empresa."

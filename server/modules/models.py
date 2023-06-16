@@ -3,6 +3,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship, registry, declar
 from sqlalchemy.sql import func
 from sqlalchemy import String, Integer, Column, DateTime, ForeignKey
 from .connection import engine
+from ..modules.cryptopass import generate_pass, decode_pass
 import datetime
 
 DBase = declarative_base()
@@ -52,12 +53,20 @@ class Colaborador(DBase):
      colab_status: Mapped[bool]
      base_id: Mapped[Optional[int]]
      colab_login: Mapped[str] = mapped_column(String(50), nullable=False)
-     colab_senha: Mapped[str] = mapped_column(String(100), nullable=True)
+     colab_password: Mapped[str] = mapped_column(String(100), nullable=True)
+
+     def __init__(self, colab_matricula:int, colab_nome:str, colab_cpf:str, colab_login:str, colab_password:str):
+          self.colab_matricula = colab_matricula
+          self.colab_nome = colab_nome
+          self.colab_cpf = colab_cpf
+          self.colab_login = colab_login
+          self.colab_password = self.__generate_hash(colab_password)
+          self.colab_status = False
 
      def __repr__(self) -> str:
           return f"Colaborador -> (colab_id={self.colab_id!r}, colab_nome={self.colab_nome!r})"
-     
-     def __generate_hash(self):
-          self.senha_hash = "Myhash"
+
+     def __generate_hash(self, password):
+          return generate_pass(password)
 
 DBase.metadata.create_all(engine)

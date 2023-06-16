@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from flask_jwt_extended import get_jwt_identity, jwt_required
 from sqlalchemy import text
 
 cargos_bp = Blueprint("cargos", __name__, url_prefix="/cargos")
@@ -22,7 +23,9 @@ lista = [
 
 # Create
 @cargos_bp.post("/inserir")
+@jwt_required()
 def insert_cargo():
+    current_user = get_jwt_identity()
     lista_length = len(lista)
     json = request.get_json()
     if json != {}:
@@ -39,7 +42,9 @@ def insert_cargo():
 
 # Read all
 @cargos_bp.get("/listar")
+@jwt_required()
 def get_cargos():
+    current_user = get_jwt_identity()
     return jsonify({
         "method":"GET",
         "acao":"Listar todos os cargos.",
@@ -48,23 +53,27 @@ def get_cargos():
 
 # Read
 @cargos_bp.get("/buscar")
+@jwt_required()
 def get_cargo():
+    current_user = get_jwt_identity()
     data = request.get_json()
-
     if 'id' in data:
         for register in lista:
             if register['id'] == data['id']:
                 return jsonify({
                     "method":"GET",
                     "acao":f"Buscar o cargo de ID {data['id']}.",
-                    "data":register
+                    "data":register,
+                    "logged_user":current_user
                 })
         return jsonify({"msg":"Insira um ID valido."})
     return jsonify({"msg":"Insira um ID."})
 
 # Update
 @cargos_bp.post("/atualizar")
+@jwt_required()
 def update_cargo():
+    current_user = get_jwt_identity()
     data = request.get_json()
     if 'id' in data:
         if 'data' in data:
@@ -81,7 +90,9 @@ def update_cargo():
 
 # Remove
 @cargos_bp.post("/remover")
+@jwt_required()
 def remove_cargo():
+    current_user = get_jwt_identity()
     data = request.get_json()
     if 'id' in data:
         del lista[data['id'] - 1]
