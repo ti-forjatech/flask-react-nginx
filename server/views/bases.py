@@ -8,7 +8,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 bases_bp = Blueprint("bases", __name__, url_prefix="/bases")
 Session = sessionmaker(bind=engine)
 
-# Create
+# Create ok
 @bases_bp.post("/inserir")
 @jwt_required()
 def insert_base():
@@ -35,7 +35,7 @@ def insert_base():
                 "current_user":current_user
             })
 
-# Read all
+# Read all ok
 @bases_bp.get("/listar")
 @jwt_required()
 def get_bases():
@@ -61,7 +61,7 @@ def get_bases():
         "current_user":current_user
     })
 
-# Read
+# Read ok
 @bases_bp.get("/buscar")
 @jwt_required()
 def get_base():
@@ -87,7 +87,7 @@ def get_base():
             "current_user":current_user
         })
 
-# Update
+# Update ok
 @bases_bp.post("/atualizar")
 @jwt_required()
 def update_base():
@@ -113,7 +113,7 @@ def update_base():
             "current_user":current_user
         })
 
-# Remove
+# Remove ok
 @bases_bp.post("/remover")
 @jwt_required()
 def remove_base():

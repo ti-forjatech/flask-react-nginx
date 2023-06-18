@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 cargos_bp = Blueprint("cargos", __name__, url_prefix="/cargos")
 Session = sessionmaker(bind=engine)
 
-# Create
+# Create ok
 @cargos_bp.post("/inserir")
 @jwt_required()
 def insert_cargo():
@@ -35,7 +35,7 @@ def insert_cargo():
             "current_user":current_user
         })
 
-# Read all
+# Read all ok
 @cargos_bp.get("/listar")
 @jwt_required()
 def get_cargos():
@@ -62,7 +62,7 @@ def get_cargos():
         "current_user":current_user
     })
 
-# Read
+# Read ok
 @cargos_bp.get("/buscar")
 @jwt_required()
 def get_cargo():
@@ -88,7 +88,7 @@ def get_cargo():
             "logged_user":current_user
         })
 
-# Update
+# Update ok
 @cargos_bp.post("/atualizar")
 @jwt_required()
 def update_cargo():
@@ -114,7 +114,7 @@ def update_cargo():
             "current_user":current_user
         })
 
-# Remove
+# Remove ok
 @cargos_bp.post("/remover")
 @jwt_required()
 def remove_cargo():

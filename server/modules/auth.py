@@ -104,4 +104,4 @@ def signup():
 def logout():
     current_user = get_jwt_identity()
     unset_jwt_cookies(current_user)
-    return jsonify({"msg": "LOGOUT", "user": current_user})
+    return current_user

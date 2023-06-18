@@ -1,6 +1,7 @@
 from flask import Blueprint, Response, jsonify
 from .colaboradores import colaboradores_bp
 from .cargos import cargos_bp
+from .enderecos import enderecos_bp
 from .bases import bases_bp
 from .fornecedores import fornecedores_bp
 from .notas import notas_bp
@@ -26,6 +27,7 @@ app_bp.register_blueprint(auth_bp)
 v2_bp.register_blueprint(colaboradores_bp)
 v2_bp.register_blueprint(cargos_bp)
 v2_bp.register_blueprint(bases_bp)
+v2_bp.register_blueprint(enderecos_bp)
 v2_bp.register_blueprint(fornecedores_bp)
 v2_bp.register_blueprint(notas_bp)
 v2_bp.register_blueprint(cotacoes_bp)
@@ -43,6 +45,7 @@ def get_data() -> Response:
         "api_version":"2.4.0",
         "api_dev_start_date":"09/07/2023",
         "api_author":"Forjatech Soluções Tecnológicas (Thyéz de Oliveira Monteiro)",
-        "api_description":"API central da Rio Services. Esta API provê recursos computacionais de alta performance e escalabilidade para o recolhimento, armazenamento adequado, operaçoes e proteção dos dados da empresa."
+        "api_author_email":"thyezoliveira.homeoffice@gmail.com",
+        "api_description":"API central da Rio Services. Esta API provê recursos computacionais de alta performance e escalabilidade para operaçoes de recolhimento, armazenamento e proteção adequados dos dados sensiveis da empresa."
     }
     return jsonify(data)

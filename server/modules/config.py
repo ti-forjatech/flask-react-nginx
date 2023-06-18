@@ -22,5 +22,6 @@ def define_app_secret(app):
     app.config["JWT_COOKIE_SECURE"] = False
     app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
     app.config["JWT_SECRET_KEY"] = config['SECRET_KEY']
+    app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies", "json"]
 
     return app

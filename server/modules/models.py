@@ -4,6 +4,7 @@ from sqlalchemy.sql import func
 from sqlalchemy import String, Integer, Column, DateTime, ForeignKey
 from .connection import engine
 from ..modules.cryptopass import generate_pass, decode_pass
+from .via_cep import Via_cep
 import datetime
 
 DBase = declarative_base()
@@ -69,4 +70,38 @@ class Colaborador(DBase):
      def __generate_hash(self, password):
           return generate_pass(password)
 
+class Endereco(DBase):
+     __tablename__ = 'tb_enderecos'
+
+     end_id: Mapped[int] = mapped_column(primary_key=True)
+     end_tipo: Mapped[str] = mapped_column(String(1), nullable=False)
+     end_cep: Mapped[Optional[int]]
+     end_logradouro: Mapped[Optional[str]] = mapped_column(String(100))
+     end_numero: Mapped[Optional[int]]
+     end_bairro: Mapped[Optional[str]] = mapped_column(String(100))
+     end_cidade: Mapped[Optional[str]] = mapped_column(String(100))
+     end_uf: Mapped[Optional[str]] = mapped_column(String(2))
+     end_referencia: Mapped[Optional[str]] = mapped_column(String(300))
+
+     def __init__(self, end_tipo:str, end_cep:int, end_numero:int, end_referencia:str):
+          self.end_cep = end_cep
+          self.end_tipo = end_tipo
+          self.end_numero = end_numero
+          self.end_referencia = end_referencia
+
+     def __repr__(self) -> str:
+          return f"Endereco -> (end_id={self.end_id!r}, end_cep={self.end_cep!r}, end_logradouro={self.end_logradouro!r}, end_numero={self.end_numero!r}, end_bairro={self.end_bairro!r}, end_cidade={self.end_cidade!r}, end_uf={self.end_uf!r}, end_referencia={self.end_referencia!r})"
+     
+     def get_end_from_viacep(self) -> dict:
+          via_cep = Via_cep(self.end_cep)
+          end = via_cep.get_end()
+          self.set_end_from_viacep(end)
+          return end
+     
+     def set_end_from_viacep(self, data:dict) -> None:
+          self.end_logradouro = data['logradouro']
+          self.end_bairro = data['bairro']
+          self.end_cidade = data['localidade']
+          self.end_uf = data['uf']
+     
 DBase.metadata.create_all(engine)

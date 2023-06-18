@@ -8,7 +8,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 colaboradores_bp = Blueprint("colaboradores", __name__, url_prefix="/colaboradores")
 Session = sessionmaker(bind=engine)
 
-# Create
+# Create ok
 @colaboradores_bp.post("/inserir")
 @jwt_required()
 def insert_colaborador():
@@ -34,7 +34,7 @@ def insert_colaborador():
                 "current_user":current_user
             })
         
-# Read all
+# Read all ok
 @colaboradores_bp.get("/listar")
 @jwt_required()
 def get_colaboradores():
@@ -77,7 +77,7 @@ def get_colaboradores():
         "current_user":current_user
     })
 
-# Read
+# Read ok
 @colaboradores_bp.get("/buscar")
 @jwt_required()
 def get_colaborador():
@@ -116,7 +116,7 @@ def get_colaborador():
             
             return jsonify(user_composition)
 
-# Update
+# Update ok
 @colaboradores_bp.post("/atualizar")
 @jwt_required()
 def update_colaborador():
@@ -133,7 +133,7 @@ def update_colaborador():
         session.commit()
         return jsonify({"msg":"Colaborador atualizado com sucesso!"})
     
-# Remove
+# Remove ok
 @colaboradores_bp.post("/remover")
 @jwt_required()
 def remove_colaborador():
