@@ -2,3 +2,4 @@
 appconfig.cfg
 venv
 client
+.env
