@@ -4,7 +4,7 @@ from dotenv import dotenv_values
 env = dotenv_values(".env")
 
 url_object = URL.create(
-    "mysql",
+    "mysql+pymysql",
     username=env["DB_USER"],
     password=env["DB_PASSWORD"],
     host=env["DB_HOST"],

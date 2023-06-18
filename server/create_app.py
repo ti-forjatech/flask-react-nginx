@@ -5,6 +5,8 @@ from datetime import datetime, timedelta, timezone
 from .views.core_view import app_bp
 from .modules.config import define_app_secret
 import sys
+import pymysql
+pymysql.install_as_MySQLdb()
 sys.path.append("/usr/local/lib/python2.7/site-packages")
 
 def bad_request(e):
