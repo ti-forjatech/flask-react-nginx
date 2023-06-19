@@ -1,5 +1,5 @@
 from flask import Blueprint, Response, jsonify
-from colaboradores import colaboradores_bp
+from .colaboradores import colaboradores_bp
 from cargos import cargos_bp
 from enderecos import enderecos_bp
 from bases import bases_bp
