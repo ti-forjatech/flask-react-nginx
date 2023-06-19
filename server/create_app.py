@@ -2,7 +2,7 @@ from flask_jwt_extended import create_access_token, get_jwt, get_jwt_identity, j
 from flask import Flask, g, jsonify
 from flask_cors import CORS
 from datetime import datetime, timedelta, timezone
-from .modules.config import define_app_secret
+from modules.config import define_app_secret
 import sys, os
 import pymysql
 pymysql.install_as_MySQLdb()
