@@ -31,7 +31,7 @@ def signature_verification_failed(e):
         })
 
 def create_app(testing: bool = True):
-    from .views.core_view import app_bp
+    from views.core_view import app_bp
     app = Flask(__name__)
     CORS(app)
     jwt = JWTManager(app)
