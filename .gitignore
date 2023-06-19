@@ -2,3 +2,4 @@
 venv
 client
 .env
+mysql

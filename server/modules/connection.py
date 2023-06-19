@@ -1,14 +1,13 @@
 from sqlalchemy import create_engine, URL, MetaData
-from dotenv import dotenv_values
-
-env = dotenv_values(".env")
+import os
 
 url_object = URL.create(
-    "mysql+pymysql",
-    username=env["DB_USER"],
-    password=env["DB_PASSWORD"],
-    host=env["DB_HOST"],
-    database=env["DB_NAME"],
+    "mysql",
+    username=os.environ.get("MYSQL_USER"),
+    password=os.environ.get("MYSQL_PASSWORD"),
+    host="rioservice_db",
+    database=os.environ.get("MYSQL_DATABASE"),
+    port=3306
 )
 
 engine = create_engine(url_object, echo=True)

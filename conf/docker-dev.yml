@@ -14,23 +14,23 @@ services:
         depends_on:
             - server
             - client
-    client:
-        build:
-            context: ../client
-            dockerfile: Dockerfile
-        container_name: client
-        command: npm start
-        volumes:
-            - ../client:/usr/app
-            - /usr/app/node_modules
-        networks:
-            my-network:
-                aliases:
-                    - client
-        command: npm start
-        stdin_open: true
-        ports:
-            - "3000:3000"
+    # client:
+    #     build:
+    #         context: ../client
+    #         dockerfile: Dockerfile
+    #     container_name: client
+    #     command: npm start
+    #     volumes:
+    #         - ../client:/usr/app
+    #         - /usr/app/node_modules
+    #     networks:
+    #         my-network:
+    #             aliases:
+    #                 - client
+    #     command: npm start
+    #     stdin_open: true
+    #     ports:
+    #         - "3000:3000"
     server:
         build:
             context: ../

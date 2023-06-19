@@ -2,9 +2,8 @@ from flask_jwt_extended import create_access_token, get_jwt, get_jwt_identity, j
 from flask import Flask, g, jsonify
 from flask_cors import CORS
 from datetime import datetime, timedelta, timezone
-from .views.core_view import app_bp
 from .modules.config import define_app_secret
-import sys
+import sys, os
 import pymysql
 pymysql.install_as_MySQLdb()
 sys.path.append("/usr/local/lib/python2.7/site-packages")
@@ -32,6 +31,7 @@ def signature_verification_failed(e):
         })
 
 def create_app(testing: bool = True):
+    from .views.core_view import app_bp
     app = Flask(__name__)
     CORS(app)
     jwt = JWTManager(app)
@@ -42,6 +42,7 @@ def create_app(testing: bool = True):
     app.register_error_handler(404, page_not_found)
     app.register_error_handler(415, only_json_advice)
     app.register_error_handler(422, signature_verification_failed)
+
     
     @app.before_request
     def before_request() -> None:
@@ -65,6 +66,4 @@ def create_app(testing: bool = True):
 application = create_app(True)
 
 if __name__ == '__main__':
-    application.run(
-        host="0.0.0.0", port=5000, debug=True, use_reloader=True
-    )
+    application.run(host="0.0.0.0")
