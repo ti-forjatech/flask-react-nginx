@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from sqlalchemy import text
-from ..modules.connection import engine
-from ..modules.models import Colaborador
+from modules.connection import engine
+from modules.models import Colaborador
 from sqlalchemy.orm import sessionmaker
 from flask_jwt_extended import get_jwt_identity, jwt_required
 
