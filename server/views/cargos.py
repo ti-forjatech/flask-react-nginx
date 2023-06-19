@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from sqlalchemy import text
-from ..modules.connection import engine
-from ..modules.models import Cargo
+from modules.connection import engine
+from modules.models import Cargo
 from sqlalchemy.orm import sessionmaker
 
 cargos_bp = Blueprint("cargos", __name__, url_prefix="/cargos")

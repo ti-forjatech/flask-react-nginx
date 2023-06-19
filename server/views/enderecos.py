@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 from sqlalchemy import text
 from flask_jwt_extended import get_jwt_identity, jwt_required
-from ..modules.connection import engine
-from ..modules.models import Endereco
+from modules.connection import engine
+from modules.models import Endereco
 from sqlalchemy.orm import sessionmaker
 
 enderecos_bp = Blueprint("enderecos", __name__, url_prefix="/enderecos")

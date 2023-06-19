@@ -2,9 +2,9 @@ from flask import Blueprint, jsonify, request
 from sqlalchemy import select
 from sqlalchemy.orm import sessionmaker
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, set_access_cookies, unset_jwt_cookies
-from .connection import engine
-from .models import Colaborador
-from .cryptopass import decode_pass
+from connection import engine
+from models import Colaborador
+from cryptopass import decode_pass
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 Session = sessionmaker(bind=engine)

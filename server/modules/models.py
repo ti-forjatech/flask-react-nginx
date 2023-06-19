@@ -2,9 +2,9 @@ from typing import Optional
 from sqlalchemy.orm import Mapped, mapped_column, relationship, registry, declarative_base
 from sqlalchemy.sql import func
 from sqlalchemy import String, Integer, Column, DateTime, ForeignKey
-from .connection import engine
-from ..modules.cryptopass import generate_pass, decode_pass
-from .via_cep import Via_cep
+from connection import engine
+from modules.cryptopass import generate_pass, decode_pass
+from via_cep import Via_cep
 import datetime
 
 DBase = declarative_base()
